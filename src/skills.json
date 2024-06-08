@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Skill 1",
+    "description": "Description of Skill 1",
+    "children": [
+      {
+        "name": "Skill 1.1",
+        "description": "Description of Skill 1.1",
+        "children": []
+      },
+      {
+        "name": "Skill 1.2",
+        "description": "Description of Skill 1.2",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Skill 2",
+    "description": "Description of Skill 2",
+    "children": []
+  }
+]
