@@ -3,7 +3,6 @@ import * as TWEEN from '@tweenjs/tween.js';
 import * as dat from 'dat.gui';
 import Stats from 'three/addons/libs/stats.module.js';
 import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
-import { setupLights } from './light';
 import { setupConstellations } from './constellation';
 import { useEffectComposer } from './effect';
 

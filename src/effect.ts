@@ -41,13 +41,13 @@ export function useEffectComposer(
   composer.addPass(outputPass);
 
   if (gui) {
-    addGuiParams(gui, renderer, bloomPass);
+    addGuiParams(gui, bloomPass);
   }
 
   return composer;
 }
 
-export function addGuiParams(gui: GUI, renderer: THREE.WebGLRenderer, bloomPass: UnrealBloomPass) {
+export function addGuiParams(gui: GUI, bloomPass: UnrealBloomPass) {
   const bloomFolder = gui.addFolder('bloom');
 
   bloomFolder
