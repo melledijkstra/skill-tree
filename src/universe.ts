@@ -56,7 +56,7 @@ class Constellation {
 
 export class Universe implements GuiAble {
   private readonly scene: THREE.Scene;
-  private mesh: THREE.Mesh | null;
+  private mesh: THREE.Mesh;
   public readonly constellations: Constellation[] = [];
   private settings = {
     radius: 600,

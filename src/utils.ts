@@ -8,10 +8,10 @@ export function removeObject3D(object3D: THREE.Object3D) {
   if (!(object3D instanceof THREE.Object3D)) return false;
 
   // for better memory management and performance
-  if (object3D.geometry) object3D.geometry.dispose();
+  if (object3D instanceof THREE.Mesh) {
+    object3D.geometry.dispose();
 
-  if (object3D.material) {
-    if (object3D.material instanceof Array) {
+    if (Array.isArray(object3D.material)) {
       // for better memory management and performance
       object3D.material.forEach((material) => material.dispose());
     } else {
