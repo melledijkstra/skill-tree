@@ -1,16 +1,31 @@
 import * as THREE from 'three';
 import { GUI } from 'dat.gui';
 import { GuiAble } from './utils';
+import constellations from './constellations.json';
+
+function arrayToVec2(coords: number[][]): THREE.Vector2[] {
+  return coords.map((coord) => {
+    const [x, y] = coord;
+    return new THREE.Vector2(x, y).multiplyScalar(10);
+  });
+}
+
+function hexStringToNumber(hexColor: string) {
+  // Remove the leading '#' or '0x' if it exists
+  // Convert the hexadecimal string to a number
+  return parseInt(hexColor.replace('0x', '').replace('#', ''), 16);
+}
 
 class Node {
   public sphere: THREE.Mesh;
 
   constructor(
     public name: string,
-    public position: THREE.Vector3
+    public position: THREE.Vector3,
+    public color: THREE.ColorRepresentation = 0xffff00
   ) {
     const geometry = new THREE.SphereGeometry(1, 10, 10);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+    const material = new THREE.MeshBasicMaterial({ color: color });
     this.sphere = new THREE.Mesh(geometry, material);
     this.sphere.position.copy(position);
     this.sphere.userData = { name };
@@ -22,28 +37,30 @@ class Constellation {
   public lines: THREE.Line[] = [];
 
   constructor(
-    public name: string,
     public scene: THREE.Scene,
-    public position: THREE.Vector3
+    public name: string,
+    public position: THREE.Vector3,
+    public coords: THREE.Vector2[],
+    public color: THREE.ColorRepresentation = 0xffff00
   ) {
     this.generateConstellation();
   }
 
   private generateConstellation() {
-    const startNode = new Node('Start', this.position);
+    const startNode = new Node('Start', this.position, this.color);
     this.nodes.push(startNode);
     this.scene.add(startNode.sphere);
 
-    const amount = Math.floor(Math.random() * 9) + 2;
+    let prevStar = startNode;
 
-    for (let i = 1; i < amount; i++) {
-      const y = Math.random() * 30 + i * 10;
-      const x = this.position.x + Math.random() * 40;
-      const z = this.position.z + Math.random() * 10;
-
-      const node = new Node(`Skill ${i}`, new THREE.Vector3(x, y, z));
-      this.nodes.push(node);
-      this.scene.add(node.sphere);
+    for (const coord of this.coords) {
+      const y = prevStar.position.y + coord.y;
+      const x = prevStar.position.x + coord.x;
+      const z = prevStar.position.z;
+      const star = new Node('Star', new THREE.Vector3(x, y, z), this.color);
+      this.nodes.push(star);
+      this.scene.add(star.sphere);
+      prevStar = star;
     }
 
     // create a line between each node
@@ -57,9 +74,9 @@ class Constellation {
 export class Universe implements GuiAble {
   private readonly scene: THREE.Scene;
   private mesh: THREE.Mesh;
-  public readonly constellations: Constellation[] = [];
+  public constellations: Constellation[] = [];
   private settings = {
-    radius: 600,
+    radius: 2000,
     widthSegments: 60,
     heightSegments: 40,
   };
@@ -85,18 +102,23 @@ export class Universe implements GuiAble {
 
   private setupConstellations() {
     const radius = 200;
-    const numberOfConstellations = 15;
+    const numberOfConstellations = constellations.length;
     const angleStep = (2 * Math.PI) / numberOfConstellations;
 
-    for (let i = 0; i < numberOfConstellations; i++) {
+    this.constellations = [];
+
+    for (const [i, constellation] of constellations.entries()) {
       const angle = i * angleStep;
       const x = radius * Math.sin(-angle);
       const z = radius * Math.cos(-angle);
 
       const position = new THREE.Vector3(x, 0, z);
-      const constellation = new Constellation(`Constellation ${i}`, this.scene, position);
+      const coords = arrayToVec2(constellation.coords);
+      const color = hexStringToNumber(constellation.color);
 
-      this.constellations.push(constellation);
+      this.constellations.push(
+        new Constellation(this.scene, constellation.name, position, coords, color)
+      );
     }
   }
 
@@ -120,7 +142,7 @@ export class Universe implements GuiAble {
     const folder = gui.addFolder('Universe');
     folder.add(this.mesh, 'visible').name('Visible');
     folder
-      .add(this.settings, 'radius', 300, 2000)
+      .add(this.settings, 'radius', 300, 4000)
       .name('Universe Scale')
       .onChange(this.updateGeometry);
   }

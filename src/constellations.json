@@ -1,0 +1,96 @@
+[
+  {
+    "name": "Orion",
+    "coords": [
+      [5, -0.5],
+      [-2, 4],
+      [3, 7.5],
+      [-7, -1],
+      [2, -5.5]
+    ],
+    "color": "0xff0000"
+  },
+  {
+    "name": "Ursa Major",
+    "coords": [
+      [2, 2],
+      [3, 3],
+      [4, 4],
+      [5, 5]
+    ],
+    "color": "0x00ff00"
+  },
+  {
+    "name": "Cassiopeia",
+    "coords": [
+      [1, 5],
+      [2, 6],
+      [3, 7]
+    ],
+    "color": "0x0000ff"
+  },
+  {
+    "name": "Scorpius",
+    "coords": [
+      [3, 1],
+      [4, 2],
+      [5, 3]
+    ],
+    "color": "0xffff00"
+  },
+  {
+    "name": "Cygnus",
+    "coords": [
+      [2, 6],
+      [3, 5],
+      [4, 4],
+      [5, 5],
+      [6, 6]
+    ],
+    "color": "0xff00ff"
+  },
+  {
+    "name": "Leo",
+    "coords": [
+      [2, 3],
+      [3, 4],
+      [4, 5]
+    ],
+    "color": "0x00ffff"
+  },
+  {
+    "name": "Taurus",
+    "coords": [
+      [1, 4],
+      [2, 5]
+    ],
+    "color": "0xff8800"
+  },
+  {
+    "name": "Gemini",
+    "coords": [
+      [2, 2],
+      [3, 3],
+      [4, 4]
+    ],
+    "color": "0x8800ff"
+  },
+  {
+    "name": "Aquarius",
+    "coords": [
+      [1, 1],
+      [2, 2],
+      [3, 3]
+    ],
+    "color": "0x888888"
+  },
+  {
+    "name": "Andromeda",
+    "coords": [
+      [3, 3],
+      [4, 4],
+      [5, 5]
+    ],
+    "color": "0xff0088"
+  }
+]

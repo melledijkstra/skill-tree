@@ -27,9 +27,18 @@ export class AudioManager implements GuiAble {
       this.audio.setBuffer(buffer);
       this.audio.setLoop(true);
       this.audio.setVolume(this.state.volume);
-      this.audio.play();
-      this.state.playing = true;
+      // this.play();
     });
+  }
+
+  public play() {
+    this.state.playing = true;
+    this.audio.play();
+  }
+
+  public pause() {
+    this.state.playing = false;
+    this.audio.pause();
   }
 
   attachGui(gui: GUI): void {
