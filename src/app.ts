@@ -69,10 +69,6 @@ export class Application {
     this.composer.attachGui(this.gui);
   }
 
-  public start() {
-    this.renderer.setAnimationLoop(() => this.render());
-  }
-
   private enableDebug() {
     this.stats.begin();
     document.body.appendChild(this.stats.dom);
@@ -145,7 +141,12 @@ export class Application {
     this.cameraMan.focusOn(target);
   }
 
-  public render() {
+  start() {
+    this.renderer.setAnimationLoop(() => this.render());
+  }
+
+  render() {
+    this.universe.update();
     this.gui.updateDisplay();
     this.cameraMan.update();
     if (this.composer.enabled) {

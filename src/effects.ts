@@ -12,7 +12,7 @@ export class Effects implements GuiAble {
   private renderPass: RenderPass;
   private bloomPass: UnrealBloomPass;
   private outputPass: OutputPass;
-  public enabled: boolean = true;
+  public enabled: boolean = false;
 
   constructor(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera) {
     this.logger.debug('setting up postprocessing');
